@@ -1,0 +1,89 @@
+
+
+.polygon {
+    display: flex;
+    position: fixed;
+    width: 2550px;
+    height: 1500px;
+    left: 54.27px;
+    top: -176.76px;
+
+    background: linear-gradient(180deg, #40916C 0%, rgba(255, 255, 255, 0) 100%), #74C69D;
+    border-radius: 306px;
+    transform: rotate(36.74deg);
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 110px;
+    margin-left: 550px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    height: 600px;
+    width: 20%;
+    text-align: center;
+
+    background: linear-gradient(155.78deg, rgba(255, 255, 255, 0.8) 0.72%, rgba(255, 255, 255, 0.2) 100%);
+    backdrop-filter: blur(10px);
+
+    border-radius: 17px;
+}
+
+.input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 50%;
+  }
+
+.loginBtn {
+    width: 45%;
+    height: 45px;
+    background: #74C69D;
+    border-radius: 12px;
+}
+
+.forgotPasswordTxt {
+font-family: Rosario;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 29px;
+
+padding: 12px 15px;
+
+color: #0066FF;
+}
+
+.signUpTxt {
+    font-family: Rosario;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    padding: 12px 15px;
+    color: #0066FF;
+}
+
+.words {
+    position: absolute;
+width: 856px;
+height: 230px;
+left: 988px;
+top: -32px;
+
+font-family: Rosario;
+font-style: normal;
+font-weight: normal;
+font-size: 190px;
+line-height: 230px;
+
+color: #000000;
+
+opacity: 0.25;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
