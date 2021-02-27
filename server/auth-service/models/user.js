@@ -28,6 +28,10 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    isOAuth: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
     friends: DataTypes.INTEGER
 });
 
