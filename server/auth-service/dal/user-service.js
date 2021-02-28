@@ -24,5 +24,15 @@ exports.createUser = async (user) => {
         return createdUser.dataValues;
     } catch (err) {
         console.log(err);
-    };
+    }
+}
+
+exports.updatePassword = async (id, password) => {
+    try {
+        let user = await User.findByPk(id);
+        user.password = password;
+        return user.save();
+    } catch (err) {
+        console.log(err);
+    }
 }

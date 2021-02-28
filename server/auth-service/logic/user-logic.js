@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const userService = require('../dal/user-service');
 
-exports.createUser = async (firstName, lastName, username, email, password, isOAuth) => {
+exports.createUser = async (email, password, isOAuth) => {
     let user = await userService.getUserByEmail(email);
     if (user) {
         return null;
@@ -9,13 +9,9 @@ exports.createUser = async (firstName, lastName, username, email, password, isOA
         const hashedPassword = await bcrypt.hash(password, 10);
         if (hashedPassword) {
             user = {
-                firstName,
-                lastName,
-                username,
                 email,
                 password: hashedPassword,
                 isOAuth,
-                friends: 0
             }
             return userService.createUser(user);
         }
@@ -38,4 +34,11 @@ exports.checkPassword = async (user, password) => {
         return match
     }
     return false;
+}
+
+exports.updatePassword = async (id, password) => {
+    const hashedPassword = await bcrypt.hash(password, 10);
+        if (hashedPassword) {
+            return userService.updatePassword(id, hashedPassword);
+        }
 }
