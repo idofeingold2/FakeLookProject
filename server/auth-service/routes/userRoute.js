@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const helpers = require('../helpers/helpers');
 const userLogic = require('../logic/user-logic');
+const helpers = require('../helpers/helpers');
 
 router.get('/logout', (req, res) => {
     req.logOut();
@@ -22,8 +22,8 @@ router.get('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { firstName, lastName, username, email, password } = req.body;
-    const user = await userLogic.createUser(firstName, lastName, username, email, password, false);
+    const { email, password } = req.body;
+    const user = await userLogic.createUser(email, password, false);
     if (user) {
         res.send(user);
     } else {
