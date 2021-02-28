@@ -35,3 +35,10 @@ exports.checkPassword = async (user, password) => {
     }
     return false;
 }
+
+exports.updatePassword = async (id, password) => {
+    const hashedPassword = await bcrypt.hash(password, 10);
+        if (hashedPassword) {
+            return userService.updatePassword(id, hashedPassword);
+        }
+}

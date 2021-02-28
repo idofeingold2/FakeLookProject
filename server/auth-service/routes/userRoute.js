@@ -27,7 +27,17 @@ router.post('/register', async (req, res) => {
     if (user) {
         res.send(user);
     } else {
-        res.send(null);
+        res.sendStatus(404);
+    }
+});
+
+router.post('/change-password', async (req, res) => {
+    const {id, password} = req.body;
+    const user = await userLogic.updatePassword(id, password);
+    if(user){
+        res.send(user)
+    } else {
+        res.sendStatus(404);
     }
 });
 
