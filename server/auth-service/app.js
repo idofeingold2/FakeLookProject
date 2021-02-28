@@ -7,6 +7,7 @@ const User = require('./models/user');
 const googleRouter = require('./routes/googleRoute');
 const facebookRouter = require('./routes/facebookRoute');
 const userRouter = require('./routes/userRoute');
+const emailRouter = require('./routes/emailRoute');
 
 const PORT = 4001;
 
@@ -20,6 +21,7 @@ app.use(passport.session());
 app.use('/auth/google', googleRouter);
 app.use('/auth/facebook', facebookRouter);
 app.use(userRouter);
+app.use(emailRouter);
 
 sequelize.sync()
     .then(() => {
