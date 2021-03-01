@@ -8,18 +8,6 @@ const User = sequelize.define('user', {
         allowNull: false,
         primaryKey: true
     },
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     email: {
         type: DataTypes.STRING,
         allowNull: false
@@ -28,7 +16,10 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    friends: DataTypes.INTEGER
+    isOAuth: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    }
 });
 
 module.exports = User;
