@@ -3,7 +3,8 @@ const User = require('../models/user');
 exports.getUserByEmail = async (email) => {
     try {
         const user = await User.findOne({ where: { email } })
-        return user.dataValues;
+        if (user)
+            return user.dataValues;
     } catch (err) {
         console.log(err);
     }
@@ -12,7 +13,8 @@ exports.getUserByEmail = async (email) => {
 exports.getUserById = async (id) => {
     try {
         const user = await User.findByPk(id);
-        return user.dataValues;
+        if (user)
+            return user.dataValues;
     } catch (err) {
         console.log(err);
     }

@@ -20,7 +20,7 @@ app.use(passport.session());
 
 app.use('/auth/google', googleRouter);
 app.use('/auth/facebook', facebookRouter);
-app.use(userRouter);
+app.use('/user', userRouter);
 app.use(emailRouter);
 
 sequelize.sync()

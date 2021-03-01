@@ -14,6 +14,7 @@ router.get('/callback',
     (req, res) => {
         const token = helpers.tokenGenerator({id: req.user.id, email: req.user.email});
         res.cookie('token', token, {maxAge: 15 * 60 * 1000, httpOnly: true});
+        res.cookie('isLoggedIn', true, {httpOnly: true});
         res.send('user sent');
     });
 
