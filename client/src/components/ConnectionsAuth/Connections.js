@@ -10,7 +10,7 @@ import ForgotPassword from '../Login/ForgotPassword';
 const Connections = () => {
 
     return (
-        <Switch>
+    <Switch>
         <Route exact path="/user/login" component={Login}/>
         <Route exact path='/user/register' component={Register}/>
         <Route exact path='/user/forgotPassowrd' component={ForgotPassword}/>

@@ -30,7 +30,7 @@ const Register = (props) => {
     </div>
     <div className="words">FakeLook</div>
         <Formik
-        initialValues={{email: "", password: ""}}
+        initialValues={{username: "", email: "", password: "", fname: "", workplace: "", age: "", address: ""}}
         onSubmit={onLogin}>
             {({errors, touched}) => (
                 <Form>
@@ -52,6 +52,12 @@ const Register = (props) => {
                     id="password"
                     name="password"
                     placeholder="Password"
+                    className="input"
+                    />
+                    <Field
+                    id="fname"
+                    name="fname"
+                    placeholder="Full Name"
                     className="input"
                     />
                 <button type="submit" className="loginBtn">

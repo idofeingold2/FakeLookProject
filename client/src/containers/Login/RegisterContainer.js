@@ -4,8 +4,8 @@ import { setError } from "../../actions/error";
 import Register from '../../components/Login/Register';
 
 const mapDispatchToProps = (dispatch) => ({
-    register: (username, email, password) => 
-        dispatch(registerUserAsync(username, email, password)),
+    register: (username, email, password, fname) => 
+        dispatch(registerUserAsync(username, email, password, fname)),
         setError: (message) => dispatch(setError(message))
 });
 

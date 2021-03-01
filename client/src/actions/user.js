@@ -19,9 +19,9 @@ const registerUser = (user) => ({
     user
 });
 
-export const registerUserAsync = (username, email, password) => {
+export const registerUserAsync = (username, email, password, fname) => {
     return (dispatch) =>
-    userRegister(username, email, password)
+    userRegister(username, email, password, fname)
     .then (({status, statusText, data}) =>
         status < 300
         ? dispatch(registerUser(data))
