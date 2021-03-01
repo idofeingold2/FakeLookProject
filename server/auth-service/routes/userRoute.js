@@ -34,8 +34,9 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/change-password', helpers.tokenVerify, async (req, res) => {
-    const {id, password} = req.body;
+router.put('/change-password', helpers.tokenVerify, async (req, res) => {
+    const password = req.body.password;
+    const id = +req.body.id;
     const user = await userLogic.updatePassword(id, password);
     if(user){
         res.send(user)
