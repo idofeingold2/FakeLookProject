@@ -3,11 +3,7 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 const keys = require('../config/keys');
 const emailLogic = require('../logic/email-logic');
 
-const transporter = nodemailer.createTransport(sendgridTransport({
-    auth: {
-        api_key: keys.nodemailerApiKey
-    }
-}));
+const transporter = nodemailer.createTransport(keys.transport);
 
 exports.sendEmail = async (to) => {
     try {
@@ -17,7 +13,7 @@ exports.sendEmail = async (to) => {
             subject: 'Reset Password',
             html: `<div>
             <h1>Reseting Your Password</h1>
-            <p>Click <a href="http://localhost:3000/reset-password-form">here</a> the link below and you will be transfered to our reset password form:</p>
+            <p>Click <a href="http://localhost:3000/reset-password-form">here</a> and you will be transfered to our reset password form</p>
             </div>`
         });
     } catch (err) {
