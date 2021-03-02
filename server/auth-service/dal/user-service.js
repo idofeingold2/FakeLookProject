@@ -1,38 +1,71 @@
 const User = require('../models/user');
 
-exports.getUserByEmail = async (email) => {
-    try {
-        const user = await User.findOne({ where: { email } })
-        return user.dataValues;
-    } catch (err) {
-        console.log(err);
-    }
+exports.getUserByEmail = (email) => {
+    return User.findOne({ where: { email } })
+        .then(user => {
+            if (user)
+                return user.dataValues;
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
-exports.getUserById = async (id) => {
-    try {
-        const user = await User.findByPk(id);
-        return user.dataValues;
-    } catch (err) {
-        console.log(err);
-    }
+exports.getUserById = (id) => {
+    return User.findByPk(id)
+        .then(user => {
+            if (user)
+                return user.dataValues;
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
-exports.createUser = async (user) => {
-    try {
-        const createdUser = await User.create(user)
-        return createdUser.dataValues;
-    } catch (err) {
-        console.log(err);
-    }
+exports.createUser = (user) => {
+    return User.create(user)
+        .then(createdUser => {
+            if (createdUser)
+                return createdUser.dataValues;
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
-exports.updatePassword = async (id, password) => {
-    try {
-        let user = await User.findByPk(id);
-        user.password = password;
-        return user.save();
-    } catch (err) {
-        console.log(err);
-    }
+exports.updatePassword = (id, password) => {
+    return User.findByPk(id)
+        .then(user => {
+            user.password = password;
+            return user.save();
+        })
+        .then(updatedUser => {
+            if (updatedUser)
+                return updatedUser.dataValues;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+exports.isEmailAvailable = (email) => {
+    return User.findOne({ where: { email } })
+        .then(user => {
+            if (user) return false;
+            return true;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+exports.isUsernameAvailable = (username) => {
+    return User.findOne({ where: { username } })
+        .then(user => {
+            if (user) return false;
+            return true;
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }

@@ -5,6 +5,9 @@ const helpers = require('../helpers/helpers');
 
 router.get('/logout', (req, res) => {
     req.logOut();
+    res.clearCookie('isLoggedIn');
+    res.clearCookie('token');
+    res.send('logged out');
 });
 
 router.get('/login', async (req, res) => {
@@ -22,17 +25,18 @@ router.get('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await userLogic.createUser(email, password, false);
-    if (user) {
+    const { email, username, password } = req.body;
+    const user = await userLogic.createUser(email, username, password, false);
+    if (!user.err) {
         res.send(user);
     } else {
-        res.sendStatus(404);
+        res.status(404).send(user.err.message);
     }
 });
 
-router.post('/change-password', async (req, res) => {
-    const {id, password} = req.body;
+router.put('/change-password', helpers.tokenVerify, async (req, res) => {
+    const password = req.body.password;
+    const id = +req.body.id;
     const user = await userLogic.updatePassword(id, password);
     if(user){
         res.send(user)
