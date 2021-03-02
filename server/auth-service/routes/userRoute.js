@@ -3,9 +3,8 @@ const router = express.Router();
 const userLogic = require('../logic/user-logic');
 const helpers = require('../helpers/helpers');
 
-router.get('/logout', (req, res) => {
+router.get('/logout', helpers.tokenVerify, (req, res) => {
     req.logOut();
-    res.clearCookie('isLoggedIn');
     res.clearCookie('token');
     res.send('logged out');
 });
@@ -13,14 +12,13 @@ router.get('/logout', (req, res) => {
 router.get('/login', async (req, res) => {
     const email = req.query.email;
     const password = req.query.password;
-    const user = await userLogic.getUserByEmail(email);
-    const isConnect = await userLogic.checkPassword(user, password);
-    if (isConnect) {
+    const user = await userLogic.login(email, password);
+    if (!user.err) {
         const token = helpers.tokenGenerator({ id: user.id, email: user.email });
         res.cookie('token', token, { maxAge: 15 * 60 * 1000, httpOnly: true });
         res.send('user logged in');
     } else {
-        res.sendStatus(401);
+        res.status(401).send(user.err.message);
     }
 });
 
@@ -42,6 +40,17 @@ router.put('/change-password', helpers.tokenVerify, async (req, res) => {
         res.send(user)
     } else {
         res.sendStatus(404);
+    }
+});
+
+router.put('/change-username', helpers.tokenVerify, async (req, res) => {
+    const id = +req.query.id;
+    const username = req.body.username;
+    const user = await userLogic.updateUsername(id, username);
+    if(!user.err){
+        res.send(user);
+    } else {
+        res.status(404).send(user.err.message);
     }
 });
 

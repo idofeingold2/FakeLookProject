@@ -19,5 +19,6 @@ exports.tokenVerify = async (req, res, next) => {
             email: user.email
         });
         res.cookie('token', newToken, {httpOnly: true, maxAge: 15 * 60 * 1000});
+        next();
     });
 }
