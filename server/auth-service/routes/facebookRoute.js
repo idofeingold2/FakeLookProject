@@ -24,8 +24,8 @@ router.get('/callback',
             firstName: req.user.firstName, 
             lastName: req.user.lastName
         }
-        res.cookie('details', userDetails, {httpOnly: true});
-        res.send('user sent');
+        // res.cookie('details', userDetails, {httpOnly: true});
+        res.send(userDetails);
     });
 
 module.exports = router;
