@@ -6,8 +6,8 @@ const emailLogic = require('../logic/email-logic');
 
 router.get('/forgot-password', async (req, res) => {
     const email = req.query.email;
-    const user = await userLogic.getUserByEmail(email);
-    if(!user.isOAuth){
+    const result = await userLogic.canChangePassword(email);
+    if(!result.err){
         emailLogic.sendEmail(email)
             .then(() => {
                 res.send('email sent');
@@ -15,6 +15,8 @@ router.get('/forgot-password', async (req, res) => {
             .catch(err => {
                 console.log(err);
             });
+    } else {
+        res.status(401).send(result.err.message);
     }
 });
 

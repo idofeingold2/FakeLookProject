@@ -36,12 +36,29 @@ exports.createUser = (user) => {
 exports.updatePassword = (id, password) => {
     return User.findByPk(id)
         .then(user => {
-            user.password = password;
-            return user.save();
+            if (user) {
+                user.password = password;
+                return user.save();
+            }
         })
         .then(updatedUser => {
-            if (updatedUser)
-                return updatedUser.dataValues;
+            return updatedUser.dataValues;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+exports.updateUsername = (id, username) => {
+    return User.findByPk(id)
+        .then(user => {
+            if(user){
+                user.username = username;
+                return user.save();
+            }
+        })
+        .then(updatedUser => {
+            return updatedUser.dataValues;
         })
         .catch(err => {
             console.log(err);
