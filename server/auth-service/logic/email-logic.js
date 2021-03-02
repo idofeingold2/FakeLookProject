@@ -1,7 +1,5 @@
 const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
 const keys = require('../config/keys');
-const emailLogic = require('../logic/email-logic');
 
 const transporter = nodemailer.createTransport(keys.transport);
 

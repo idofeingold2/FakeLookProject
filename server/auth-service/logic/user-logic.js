@@ -1,21 +1,47 @@
 const bcrypt = require('bcrypt');
 const userService = require('../dal/user-service');
 
-exports.createUser = async (email, password, isOAuth) => {
-    let user = await userService.getUserByEmail(email);
-    if (user) {
-        return null;
-    } else {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        if (hashedPassword) {
-            user = {
-                email,
-                password: hashedPassword,
-                isOAuth,
+exports.createUser = async (email, username, password, isOAuth) => {
+    return userService.isEmailAvailable(email)
+        .then(isEmailAvailable => {
+            if (!isEmailAvailable) {
+                throw new Error('A user with this email already exists!')
             }
-            return userService.createUser(user);
-        }
-    }
+            return userService.isUsernameAvailable(username);
+        })
+        .then(isUsernameAvailable => {
+            if (!isUsernameAvailable) {
+                throw new Error('A user with this username already exists!')
+            }
+            return bcrypt.hash(password, 10);
+        })
+        .then(hashedPassword => {
+            return userService.createUser({
+                email,
+                username,
+                password: hashedPassword,
+                isOAuth
+            });
+        })
+        .catch((err) => {
+            return { err }
+        });
+
+    // let user = await userService.getUserByEmail(email);
+    // if (user) {
+    //     throw new Error()
+    // } else {
+    //     const hashedPassword = await bcrypt.hash(password, 10);
+    //     if (hashedPassword) {
+    //         user = {
+    //             email,
+    //             password: hashedPassword,
+    //             username,
+    //             isOAuth,
+    //         }
+    //         return userService.createUser(user);
+    //     }
+    // }
 }
 
 exports.getUserById = async (id) => {
@@ -38,7 +64,7 @@ exports.checkPassword = async (user, password) => {
 
 exports.updatePassword = async (id, password) => {
     const hashedPassword = await bcrypt.hash(password, 10);
-        if (hashedPassword) {
-            return userService.updatePassword(id, hashedPassword);
-        }
+    if (hashedPassword) {
+        return userService.updatePassword(id, hashedPassword);
+    }
 }

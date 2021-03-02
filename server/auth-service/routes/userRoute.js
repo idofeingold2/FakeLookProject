@@ -25,12 +25,12 @@ router.get('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await userLogic.createUser(email, password, false);
-    if (user) {
+    const { email, username, password } = req.body;
+    const user = await userLogic.createUser(email, username, password, false);
+    if (!user.err) {
         res.send(user);
     } else {
-        res.sendStatus(404);
+        res.status(404).send(user.err.message);
     }
 });
 

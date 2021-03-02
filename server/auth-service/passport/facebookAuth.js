@@ -19,20 +19,38 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'displayName', 'name', 'emails']
 },
     async (accessToken, refreshToken, profile, done) => {
-        let user = await userLogic.getUserByEmail(profile.emails[0].value);
-        if (!user) {
-            user = await userLogic.createUser(
-                profile.name.givenName,
-                profile.name.familyName,
-                profile.displayName.replace(' ', ''),
-                profile.emails[0].value,
-                profile.id,
-                true
-            );
-            console.log('created user');
-        } else {
-            console.log('got user');
-        }
-        done(null, user);
+        userLogic.getUserByEmail(profile.emails[0].value)
+            .then(user => {
+                if (!user) {
+                    userLogic.createUser(
+                        profile.emails[0].value,
+                        profile.emails[0].value,
+                        profile.id,
+                        true
+                    )
+                        .then(createdUser => {
+                            if (createdUser.err) {
+                                throw new Error(createdUser.err.message);
+                            } else {
+                                createdUser.firstName = profile.name.givenName;
+                                createdUser.lastName = profile.name.familyName;
+                                return done(null, createdUser);
+                            }
+                        })
+                        .catch(err => {
+                            return done(null, { id: 0, err });
+                        });
+                }
+                else if (!user.isOAuth) {
+                    throw new Error('The user with this email has registered via form and not via Facebook. Please sign in as before.');
+                } else {
+                    user.firstName = profile.name.givenName;
+                    user.lastName = profile.name.familyName;
+                    return done(null, user);
+                }
+            })
+            .catch(err => {
+                return done(null, { id: 0, err });
+            });
     }
 ));
