@@ -34,7 +34,7 @@ router.put('/update', async (req, res) => {
     }
 });
 
-router.put('/change-username', (req, res) => {
+router.put('/change-username', async(req, res) => {
     const id = +req.query.id;
     const username = req.body.username;
     const user = await userLogic.updateUsername(id, username);
