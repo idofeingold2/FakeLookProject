@@ -24,7 +24,10 @@ const Post = sequelize.define('post', {
         type: DataTypes.DOUBLE,
         allowNull: false
     },
-    likes: DataTypes.INTEGER
+    isPublic: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
 });
 
 module.exports = Post;
