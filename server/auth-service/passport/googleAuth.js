@@ -33,6 +33,7 @@ passport.use(new GoogleStrategy({
                             } else {
                                 createdUser.firstName = profile.name.givenName;
                                 createdUser.lastName = profile.name.familyName;
+                                createdUser.created = true;
                                 return done(null, createdUser);
                             }
                         })
