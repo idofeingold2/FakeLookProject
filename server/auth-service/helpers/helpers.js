@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
+const tokenSecret = require('../../common/config/token-secret');
 
 exports.tokenGenerator = (payload) => {
-    return jwt.sign(payload, keys.tokenSecret, {expiresIn: '15m'});
+    return jwt.sign(payload, tokenSecret, {expiresIn: '15m'});
 }
 
 exports.tokenVerify = async (req, res, next) => {
@@ -10,7 +10,7 @@ exports.tokenVerify = async (req, res, next) => {
     if(!token){
         return res.sendStatus(401);
     }
-    jwt.verify(token, keys.tokenSecret, (err, user) => {
+    jwt.verify(token, tokenSecret, (err, user) => {
         if(err){
             return res.sendStatus(403);
         }
