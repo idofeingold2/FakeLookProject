@@ -13,10 +13,10 @@ const Register = (props) => {
     history.push(path);
   };
 
-  onRegister = ({username, email, password}) => {
+  const onRegister = ({username, email, password}) => {
       register(username, email, password)
       .then((res) => {
-          if(res.type == REGISTER_USER){
+          if(res.type === REGISTER_USER){
               history.push('/user/login');
           } else {
               setError(res.err);
@@ -31,7 +31,7 @@ const Register = (props) => {
     <div className="words">FakeLook</div>
         <Formik
         initialValues={{username: "", email: "", password: "", fname: "", workplace: "", age: "", address: ""}}
-        onSubmit={onLogin}>
+        onSubmit={onRegister}>
             {({errors, touched}) => (
                 <Form>
                 <div className="form">
