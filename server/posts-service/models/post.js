@@ -27,6 +27,12 @@ const Post = sequelize.define('post', {
     isPublic: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    photoTags: {
+        type: DataTypes.STRING
+    },
+    userTags: {
+        type: DataTypes.STRING
     }
 });
 
