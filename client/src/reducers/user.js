@@ -1,5 +1,7 @@
 import { LOGIN_USER, REGISTER_USER, UPDATE_USER } from "../actions/user";
 
+const initialState = [];
+
 const userReducer = (user = initialState, action) => {
     switch (action.type) {
         case LOGIN_USER:
